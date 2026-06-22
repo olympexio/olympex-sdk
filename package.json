@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/olympexio/olympex-sdk.git"
   },
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Official TypeScript SDK for Olympex partner integrations.",
   "license": "Apache-2.0",
   "packageManager": "yarn@4.15.0",
