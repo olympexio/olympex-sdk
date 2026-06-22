@@ -43,11 +43,14 @@ jobs:
       - name: Typecheck
         run: yarn typecheck
 
+      - name: Build
+        run: yarn build
+
       - name: Test
         run: yarn test
 
-      - name: Build
-        run: yarn build
+      - name: Packaging smoke tests
+        run: yarn test:packaging
 
       - name: Pack smoke test
         run: npm pack --dry-run

@@ -15,9 +15,10 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "removeComments": false,
+    "noEmit": true,
     "allowImportingTsExtensions": true,
     "types": ["vitest", "node"]
   },
   "include": ["src", "tests", "scripts", "*.config.ts", "eslint.config.mjs"],
-  "exclude": ["dist", "coverage", "node_modules"]
+  "exclude": ["dist", "coverage", "node_modules", "tests/packaging"]
 }

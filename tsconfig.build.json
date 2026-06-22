@@ -1,7 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "noEmit": false,
+    "allowImportingTsExtensions": false
   },
   "include": ["src"],
   "exclude": ["tests", "dist", "coverage", "node_modules"]
