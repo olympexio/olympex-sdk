@@ -47,7 +47,7 @@ Success response (shape may be wrapped in `data`):
 SDK usage (no `initialize` required):
 
 ```ts
-import { createAccount, initialize } from '@Olympex-io/olympex-sdk';
+import { createAccount, initialize } from '@olympex-io/olympex-sdk';
 
 const { apiKey, secretKey } = await createAccount({
   name: 'My App',
@@ -79,6 +79,8 @@ Set `OLYMPEX_BACKEND_URL` per deployment (see [Getting started — Backend URL](
 
 All SDK methods that hit GraphQL (`quote`, `swap`, `txStatus`, `supportChain`, etc.)
 automatically attach signed headers. You do not sign manually when using the SDK.
+
+The backend resolves your **integrator channel** and fee policy from this signed auth context — the SDK does not send or infer channel identifiers.
 
 ## Signed request algorithm
 

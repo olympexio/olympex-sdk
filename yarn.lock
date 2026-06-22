@@ -5,29 +5,6 @@ __metadata:
   version: 10
   cacheKey: 10c0
 
-"@Olympex-io/olympex-sdk@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@Olympex-io/olympex-sdk@workspace:."
-  dependencies:
-    "@changesets/cli": "npm:2.31.0"
-    "@eslint/js": "npm:10.0.1"
-    "@types/node": "npm:22.7.5"
-    "@vitest/coverage-v8": "npm:4.1.9"
-    dotenv: "npm:17.4.2"
-    eslint: "npm:10.4.1"
-    eslint-plugin-jsdoc: "npm:63.0.4"
-    ethers: "npm:6.16.0"
-    husky: "npm:9.1.7"
-    lint-staged: "npm:17.0.7"
-    prettier: "npm:3.8.3"
-    tsup: "npm:8.5.1"
-    tsx: "npm:4.22.4"
-    typescript: "npm:6.0.3"
-    typescript-eslint: "npm:8.60.0"
-    vitest: "npm:4.1.9"
-  languageName: unknown
-  linkType: soft
-
 "@adraffy/ens-normalize@npm:1.10.1":
   version: 1.10.1
   resolution: "@adraffy/ens-normalize@npm:1.10.1"
@@ -984,6 +961,29 @@ __metadata:
   checksum: 10c0/db9de047c3bb9b51f9335a7bb46f4fcfb6829fb628318c12115fbaf7d369bfce71c15b103d1fc3b464812d936220ee9bc1c8f762d032c9f6be9acc99249095b1
   languageName: node
   linkType: hard
+
+"@olympex-io/olympex-sdk@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@olympex-io/olympex-sdk@workspace:."
+  dependencies:
+    "@changesets/cli": "npm:2.31.0"
+    "@eslint/js": "npm:10.0.1"
+    "@types/node": "npm:22.7.5"
+    "@vitest/coverage-v8": "npm:4.1.9"
+    dotenv: "npm:17.4.2"
+    eslint: "npm:10.4.1"
+    eslint-plugin-jsdoc: "npm:63.0.4"
+    ethers: "npm:6.16.0"
+    husky: "npm:9.1.7"
+    lint-staged: "npm:17.0.7"
+    prettier: "npm:3.8.3"
+    tsup: "npm:8.5.1"
+    tsx: "npm:4.22.4"
+    typescript: "npm:6.0.3"
+    typescript-eslint: "npm:8.60.0"
+    vitest: "npm:4.1.9"
+  languageName: unknown
+  linkType: soft
 
 "@oxc-project/types@npm:=0.132.0":
   version: 0.132.0

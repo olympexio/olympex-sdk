@@ -21,7 +21,7 @@ type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 Zero-dependency console adapter for quick local debugging:
 
 ```typescript
-import { createConsoleLogger, initialize } from '@Olympex-io/olympex-sdk';
+import { createConsoleLogger, initialize } from '@olympex-io/olympex-sdk';
 
 const client = initialize({
   apiKey: process.env.OLYMPEX_API_KEY!,
@@ -57,7 +57,7 @@ No peer dependency is bundled; wire pino yourself:
 
 ```typescript
 import pino from 'pino';
-import type { OlympexLogger } from '@Olympex-io/olympex-sdk';
+import type { OlympexLogger } from '@olympex-io/olympex-sdk';
 
 const pinoLogger = pino({ level: 'info' });
 const logger: OlympexLogger = {
@@ -71,7 +71,7 @@ const logger: OlympexLogger = {
 
 ```typescript
 import winston from 'winston';
-import type { OlympexLogger } from '@Olympex-io/olympex-sdk';
+import type { OlympexLogger } from '@olympex-io/olympex-sdk';
 
 const winstonLogger = winston.createLogger({
   level: 'info',

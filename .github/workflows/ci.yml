@@ -17,15 +17,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          cache: yarn
 
       - name: Enable Corepack
         run: corepack enable
-
-      - name: Setup Node.js cache
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -47,6 +42,9 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Packaging smoke tests
+        run: yarn test:packaging
 
       - name: Pack smoke test
         run: npm pack --dry-run

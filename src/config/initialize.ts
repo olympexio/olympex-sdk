@@ -24,7 +24,7 @@ const DEFAULT_TIMEOUT_MS = 30_000;
  *
  * @example Minimal bootstrap
  * ```ts
- * import { initialize } from '@Olympex-io/olympex-sdk';
+ * import { initialize } from '@olympex-io/olympex-sdk';
  *
  * const client = initialize({
  *   apiKey: process.env.OLYMPEX_API_KEY!,
@@ -35,7 +35,7 @@ const DEFAULT_TIMEOUT_MS = 30_000;
  *
  * @example With opt-in console logging
  * ```ts
- * import { initialize, createConsoleLogger } from '@Olympex-io/olympex-sdk';
+ * import { initialize, createConsoleLogger } from '@olympex-io/olympex-sdk';
  *
  * const client = initialize({
  *   apiKey: process.env.OLYMPEX_API_KEY!,

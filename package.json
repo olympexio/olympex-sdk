@@ -1,5 +1,9 @@
 {
-  "name": "@Olympex-io/olympex-sdk",
+  "name": "@olympex-io/olympex-sdk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olympexio/olympex-sdk.git"
+  },
   "version": "0.0.0",
   "description": "Official TypeScript SDK for Olympex partner integrations.",
   "license": "Apache-2.0",
@@ -34,7 +38,8 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "provenance": true,
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
     "build": "tsup",
@@ -44,6 +49,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
+    "test:packaging": "vitest run tests/packaging",
     "test:coverage": "vitest run --coverage",
     "lint:jsdoc": "node --experimental-strip-types scripts/validate-export-jsdoc.ts",
     "changeset": "changeset",

@@ -25,17 +25,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          cache: yarn
           registry-url: https://registry.npmjs.org
 
       - name: Enable Corepack
         run: corepack enable
-
-      - name: Setup Node.js cache
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -56,6 +50,6 @@ jobs:
         uses: changesets/action@v1
         with:
           version: yarn version-packages
-          publish: yarn npm publish --provenance --access public
+          publish: npm publish --provenance --access public
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

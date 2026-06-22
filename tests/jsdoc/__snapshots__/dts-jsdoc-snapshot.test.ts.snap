@@ -72,7 +72,7 @@ exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > OlympexSdkError JSDoc m
  *   OlympexSdkError,
  *   OlympexConfigError,
  *   OlympexDomainError,
- * } from '@Olympex-io/olympex-sdk';
+ * } from '@olympex-io/olympex-sdk';
  *
  * try {
  *   await client.quote({ mode: 'single-chain', params: { ... } });
@@ -102,7 +102,7 @@ exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > initialize JSDoc matche
  *
  * @example Minimal bootstrap
  * \`\`\`ts
- * import { initialize } from '@Olympex-io/olympex-sdk';
+ * import { initialize } from '@olympex-io/olympex-sdk';
  *
  * const client = initialize({
  *   apiKey: process.env.OLYMPEX_API_KEY!,
@@ -113,7 +113,7 @@ exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > initialize JSDoc matche
  *
  * @example With opt-in console logging
  * \`\`\`ts
- * import { initialize, createConsoleLogger } from '@Olympex-io/olympex-sdk';
+ * import { initialize, createConsoleLogger } from '@olympex-io/olympex-sdk';
  *
  * const client = initialize({
  *   apiKey: process.env.OLYMPEX_API_KEY!,
