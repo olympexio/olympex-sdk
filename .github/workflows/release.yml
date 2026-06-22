@@ -25,11 +25,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: yarn
           registry-url: https://registry.npmjs.org
 
       - name: Enable Corepack
         run: corepack enable
+
+      - name: Setup Node.js cache
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: yarn install --immutable
