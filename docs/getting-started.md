@@ -25,7 +25,7 @@ GraphQL requests use the resolved endpoint. REST onboarding POSTs to `{origin}/a
 ## Minimal Node example
 
 ```ts
-import { initialize } from '@Olympex-io/olympex-sdk';
+import { initialize } from '@olympex-io/olympex-sdk';
 
 const client = initialize({
   apiKey: process.env.OLYMPEX_API_KEY!,
@@ -45,7 +45,7 @@ For staging or local backends, set `OLYMPEX_BACKEND_URL` in your environment bef
 `createAccount` is REST-based and does not require `initialize`:
 
 ```ts
-import { createAccount } from '@Olympex-io/olympex-sdk';
+import { createAccount } from '@olympex-io/olympex-sdk';
 
 const credentials = await createAccount({
   name: 'My App',
@@ -61,7 +61,7 @@ See `docs/authentication.md` for the full credential lifecycle.
 
 ## Quote
 
-Fees are configured per request with `feeRecipient` and optional `feeBps`:
+Fees are configured per request with `feeRecipient` and optional `feeBps`. These declare **integrator margin**; channel resolution and `platformFeeIntegrator` are backend-owned from signed auth. See [`fees.md`](./fees.md).
 
 ```ts
 const quote = await client.quote({

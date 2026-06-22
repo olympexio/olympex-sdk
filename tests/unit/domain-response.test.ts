@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { requirePayload, requireSuccessfulDomainResponse } from '../../src/client/domain-response.js';
+import {
+  requirePayload,
+  requireSuccessfulDomainResponse,
+} from '../../src/client/domain-response.js';
 import { OlympexDomainError } from '../../src/index.js';
 
 describe('domain-response helpers', () => {
@@ -23,6 +26,8 @@ describe('domain-response helpers', () => {
 
   it('requireSuccessfulDomainResponse throws for null or undefined', () => {
     expect(() => requireSuccessfulDomainResponse(null, 'quote')).toThrow(OlympexDomainError);
-    expect(() => requireSuccessfulDomainResponse(undefined, 'quote')).toThrow(/Missing quote response/);
+    expect(() => requireSuccessfulDomainResponse(undefined, 'quote')).toThrow(
+      /Missing quote response/,
+    );
   });
 });

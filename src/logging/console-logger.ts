@@ -25,7 +25,7 @@ export interface CreateConsoleLoggerOptions {
  *
  * @example
  * ```ts
- * import { createConsoleLogger } from '@Olympex-io/olympex-sdk';
+ * import { createConsoleLogger } from '@olympex-io/olympex-sdk';
  *
  * const logger = createConsoleLogger({ minLevel: 'warn' });
  * logger.log('info', 'filtered out');
@@ -34,9 +34,7 @@ export interface CreateConsoleLoggerOptions {
  *
  * @see docs/logging.md
  */
-export function createConsoleLogger(
-  options: CreateConsoleLoggerOptions = {},
-): OlympexLogger {
+export function createConsoleLogger(options: CreateConsoleLoggerOptions = {}): OlympexLogger {
   const minRank = LEVEL_RANK[options.minLevel ?? 'info'];
 
   const target = (level: LogLevel): ((...args: unknown[]) => void) => {

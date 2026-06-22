@@ -1,8 +1,17 @@
 # Fee options
 
-Optional fee fields on `quote` and `swap` declare where fees should accrue. The SDK validates
-and forwards them; the backend applies fee policy for your authenticated account (see
-`docs/authentication.md`).
+Optional fee fields on `quote` and `swap` declare **integrator margin** — where your share of the trade fee should accrue. The SDK validates shape and bounds locally, then forwards the fields unchanged. It never computes fee amounts, routes, or payout splits.
+
+## Responsibility model
+
+| Layer                   | Owns                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------ |
+| **Integrator (you)**    | Supplying `feeBps` (0–100) and `feeRecipient` when you want margin on a quote/swap               |
+| **SDK**                 | Local validation (range, address format) and GraphQL serialization only                          |
+| **Backend**             | Resolving integrator channel from signed auth (`x-api-key-id`, signature headers)                |
+| **Backend + contracts** | Applying `platformFeeIntegrator` (integrator-channel protocol fee) and partner commercial policy |
+
+The SDK does **not** identify whether the caller is an external integrator or Olympex's own frontend. Channel classification and protocol fees are backend/contracts-owned from the signed partner auth context.
 
 ## Fee fields
 
@@ -11,14 +20,15 @@ and forwards them; the backend applies fee policy for your authenticated account
 | `feeBps`       | `number` (0–100) | Validated locally when present; forwarded to GraphQL params |
 | `feeRecipient` | Ethereum address | Format-validated when present; forwarded to GraphQL params  |
 
-When a field is omitted, the SDK does not send it. The backend decides whether fee fields apply
-for your account.
+When a field is omitted, the SDK does not send it. The backend decides whether fee fields apply for your authenticated account and channel.
 
 Set defaults once via `initialize({ defaultFees })`, or override per call with `fees`.
 
 ## Example
 
 ```ts
+import { initialize } from '@olympex-io/olympex-sdk';
+
 const client = initialize({
   apiKey: process.env.OLYMPEX_API_KEY!,
   apiSecret: process.env.OLYMPEX_API_SECRET!,
@@ -39,19 +49,16 @@ await client.quote({
     slippage: '1',
     gasPrice: '30',
   },
-  // optional per-call override
   fees: { feeBps: 20, feeRecipient: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb' },
 });
 ```
 
-## Backend dependency
+## What the SDK does not do
 
-GraphQL input types must accept `feeBps` and `feeRecipient` before the live backend can process
-them. Until then, requests that include these fields may receive GraphQL validation errors from
-the server.
+- Compute quotes, routes, or fee breakdowns
+- Expose or accept `platformFeeIntegrator` as consumer input
+- Branch on caller channel or apply Olympex protocol fee tiers locally
 
-> **Note:** Backend implementation is in progress. When it is complete, **this documentation
-> must be updated**.
+Protocol fees configured by Olympex for your integrator channel are applied by the backend from your authenticated account — SDK consumers do not set them.
 
-Protocol fees configured by Olympex are applied by the backend from your authenticated account —
-SDK consumers do not set them.
+See also [`authentication.md`](./authentication.md) for how channel context is derived from signed requests.

@@ -43,11 +43,14 @@ jobs:
       - name: Typecheck
         run: yarn typecheck
 
+      - name: Build
+        run: yarn build
+
       - name: Test
         run: yarn test
 
-      - name: Build
-        run: yarn build
+      - name: Packaging smoke tests
+        run: yarn test:packaging
 
       - name: Pack smoke test
         run: npm pack --dry-run
@@ -56,6 +59,6 @@ jobs:
         uses: changesets/action@v1
         with:
           version: yarn version-packages
-          publish: yarn npm publish --provenance --access public
+          publish: npm publish --provenance --access public
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

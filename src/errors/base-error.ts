@@ -12,7 +12,7 @@
  *   OlympexSdkError,
  *   OlympexConfigError,
  *   OlympexDomainError,
- * } from '@Olympex-io/olympex-sdk';
+ * } from '@olympex-io/olympex-sdk';
  *
  * try {
  *   await client.quote({ mode: 'single-chain', params: { ... } });
