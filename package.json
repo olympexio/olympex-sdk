@@ -44,7 +44,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

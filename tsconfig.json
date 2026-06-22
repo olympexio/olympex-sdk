@@ -20,5 +20,5 @@
     "types": ["vitest", "node"]
   },
   "include": ["src", "tests", "scripts", "*.config.ts", "eslint.config.mjs"],
-  "exclude": ["dist", "coverage", "node_modules", "tests/packaging"]
+  "exclude": ["dist", "coverage", "node_modules"]
 }
