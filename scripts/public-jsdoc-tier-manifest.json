@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "tiers": {
+    "1": [
+      "initialize",
+      "OlympexClient",
+      "OlympexClient.quote",
+      "OlympexClient.swap",
+      "OlympexClient.txStatus",
+      "OlympexClient.supportChain",
+      "OlympexClient.getVersion",
+      "OlympexClient.createAccount",
+      "createAccount",
+      "InitializeOptions",
+      "FeeOptions",
+      "OlympexSdkError",
+      "OlympexConfigError",
+      "OlympexDomainError",
+      "OlympexGraphQLError",
+      "OlympexNetworkError",
+      "OlympexNotImplementedError"
+    ],
+    "2": [
+      "QuoteRequest",
+      "SingleChainQuoteInput",
+      "CrossChainQuoteInput",
+      "SwapRequest",
+      "SingleChainSwapInput",
+      "CrossChainSwapInput",
+      "QuoteResult",
+      "SwapResult",
+      "SingleChainQuote",
+      "CrossChainQuote",
+      "SingleChainSwap",
+      "CrossChainSwap",
+      "TxStatusInput",
+      "TxStatus",
+      "CreateAccountInput",
+      "CreateAccountOptions",
+      "CreateAccountResponse",
+      "createConsoleLogger",
+      "getVersion",
+      "OlympexLogger",
+      "LogLevel",
+      "GasMultiplier",
+      "QuoteOrderBy"
+    ],
+    "3": [
+      "QuoteMarket",
+      "QuoteRoute",
+      "QuoteSubRoute",
+      "QuoteDex",
+      "DataFeeTransaction",
+      "CrossChainRouteAsset",
+      "CrossChainRouteAssetPair"
+    ]
+  },
+  "exampleQuotas": {
+    "globalMinimum": 12,
+    "perSymbolMinimums": {
+      "initialize": 1,
+      "quote": 1,
+      "swap": 1,
+      "createConsoleLogger": 1
+    },
+    "entryPointSymbols": [
+      "initialize",
+      "createConsoleLogger",
+      "OlympexClient.quote",
+      "OlympexClient.swap",
+      "OlympexClient.txStatus",
+      "OlympexClient.supportChain",
+      "QuoteResult",
+      "SwapResult",
+      "FeeOptions",
+      "InitializeOptions",
+      "OlympexSdkError"
+    ]
+  },
+  "throwsRequired": [
+    "initialize",
+    "OlympexClient.quote",
+    "OlympexClient.swap",
+    "OlympexClient.txStatus",
+    "OlympexClient.supportChain",
+    "OlympexClient.createAccount",
+    "createAccount"
+  ],
+  "symbolAliases": {
+    "quote": "OlympexClient.quote",
+    "swap": "OlympexClient.swap"
+  }
+}
