@@ -1,0 +1,226 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > OlympexConfigError JSDoc matches snapshot 1`] = `
+"/**
+ * Thrown when SDK configuration or caller input fails local validation before a network call.
+ *
+ * @remarks Extends {@link OlympexSdkError}. Safe to catch by \`instanceof\` or \`error.code\`
+ * (\`OLYMPEX_CONFIG_ERROR\`). Examples: empty \`apiKey\`, invalid \`OLYMPEX_BACKEND_URL\`, invalid
+ * {@link FeeOptions.feeBps | feeBps}.
+ *
+ * @see docs/errors.md
+ */"
+`;
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > OlympexDomainError JSDoc matches snapshot 1`] = `
+"/**
+ * Thrown when the backend returns a domain-level \`success: false\` response.
+ *
+ * @remarks Extends {@link OlympexSdkError}. The HTTP request succeeded but the payload
+ * indicates a business-rule or validation failure. Inspect \`error.message\` and \`error.metadata\`
+ * for backend-provided context.
+ *
+ * @see docs/errors.md
+ */"
+`;
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > OlympexGraphQLError JSDoc matches snapshot 1`] = `
+"/**
+ * Thrown when the GraphQL response contains an \`errors[]\` array on an otherwise successful HTTP 200.
+ *
+ * @remarks Extends {@link OlympexSdkError}. Distinct from {@link OlympexNetworkError} — the
+ * transport succeeded but the GraphQL layer reported execution or validation failures.
+ *
+ * @see docs/errors.md
+ */"
+`;
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > OlympexNetworkError JSDoc matches snapshot 1`] = `
+"/**
+ * Thrown on network failures: timeouts, fetch errors, or non-2xx HTTP responses.
+ *
+ * @remarks Extends {@link OlympexSdkError}. Retry logic should consider exponential backoff;
+ * inspect \`error.metadata\` for status codes when available.
+ *
+ * @see docs/errors.md
+ */"
+`;
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > OlympexNotImplementedError JSDoc matches snapshot 1`] = `
+"/**
+ * Thrown when a public method is not yet backed by a live backend contract.
+ *
+ * @remarks Extends {@link OlympexSdkError}. Use when exposing explicitly unsupported
+ * temporary paths while backend contracts are still in progress.
+ *
+ * @see docs/errors.md
+ */"
+`;
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > OlympexSdkError JSDoc matches snapshot 1`] = `
+"/**
+ * Base error for all SDK-thrown failures. Subclasses map to specific failure modes.
+ *
+ * @remarks Every SDK error exposes a stable \`code\` string and optional \`metadata\`.
+ * Catch by \`instanceof\` or compare \`error.code\` for transport-agnostic handling.
+ * See {@link OlympexConfigError}, {@link OlympexDomainError}, {@link OlympexGraphQLError},
+ * {@link OlympexNetworkError}, and {@link OlympexNotImplementedError}.
+ *
+ * @example
+ * \`\`\`ts
+ * import {
+ *   OlympexSdkError,
+ *   OlympexConfigError,
+ *   OlympexDomainError,
+ * } from '@Olympex-io/olympex-sdk';
+ *
+ * try {
+ *   await client.quote({ mode: 'single-chain', params: { ... } });
+ * } catch (error) {
+ *   if (error instanceof OlympexConfigError) {
+ *     console.error('Invalid input:', error.code, error.message);
+ *   } else if (error instanceof OlympexDomainError) {
+ *     console.error('Backend rejected:', error.code, error.metadata);
+ *   } else if (error instanceof OlympexSdkError) {
+ *     console.error('SDK error:', error.code);
+ *   }
+ * }
+ * \`\`\`
+ */"
+`;
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > initialize JSDoc matches snapshot 1`] = `
+"/**
+ * Creates an {@link OlympexClient} bound to an API key.
+ *
+ * @remarks Logging is silent-by-default unless {@link InitializeOptions.logger} is provided.
+ * Fee defaults in \`defaultFees\` are validated locally then forwarded to the backend.
+ * Backend routing is resolved from \`OLYMPEX_BACKEND_URL\` at call time.
+ * @param options - {@link InitializeOptions} configuration.
+ * @returns Configured {@link OlympexClient} ready for quote, swap, and status calls.
+ * @throws {OlympexConfigError} When auth credentials are empty, \`OLYMPEX_BACKEND_URL\` is invalid, or \`defaultFees\` fail validation.
+ *
+ * @example Minimal bootstrap
+ * \`\`\`ts
+ * import { initialize } from '@Olympex-io/olympex-sdk';
+ *
+ * const client = initialize({
+ *   apiKey: process.env.OLYMPEX_API_KEY!,
+ *   apiSecret: process.env.OLYMPEX_API_SECRET!,
+ *   passphrase: process.env.OLYMPEX_PASSPHRASE!,
+ * });
+ * \`\`\`
+ *
+ * @example With opt-in console logging
+ * \`\`\`ts
+ * import { initialize, createConsoleLogger } from '@Olympex-io/olympex-sdk';
+ *
+ * const client = initialize({
+ *   apiKey: process.env.OLYMPEX_API_KEY!,
+ *   apiSecret: process.env.OLYMPEX_API_SECRET!,
+ *   passphrase: process.env.OLYMPEX_PASSPHRASE!,
+ *   logger: createConsoleLogger({ minLevel: 'debug' }),
+ * });
+ * \`\`\`
+ *
+ * @see docs/getting-started.md
+ */"
+`;
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > quote JSDoc matches snapshot 1`] = `
+"/**
+     * Fetches a swap quote for single-chain or cross-chain routes.
+     *
+     * @remarks Forwards params unchanged to the backend. Does not compute routes or fees locally.
+     * Per-request {@link FeeOptions} in \`input.fees\` override {@link InitializeOptions.defaultFees}.
+     * @param input - Discriminated by {@link QuoteRequest.mode | mode}.
+     * @returns {@link QuoteResult} normalized for the selected mode.
+     * @throws {OlympexConfigError} Local validation failure (e.g. invalid {@link FeeOptions.feeBps}).
+     * @throws {OlympexDomainError} Backend \`success: false\` domain response.
+     * @throws {OlympexGraphQLError} GraphQL errors in an otherwise successful HTTP response.
+     * @throws {OlympexNetworkError} Network, timeout, or non-2xx HTTP failure.
+     *
+     * @example Single-chain quote with fee options
+     * \`\`\`ts
+     * const result = await client.quote({
+     *   mode: 'single-chain',
+     *   params: {
+     *     chainId: 1,
+     *     inTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+     *     outTokenAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+     *     amount: '1000000',
+     *     slippage: '0.5',
+     *     gasPrice: '20000000000',
+     *   },
+     *   fees: { feeBps: 25, feeRecipient: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb' },
+     * });
+     * \`\`\`
+     *
+     * @example Cross-chain bridge quote
+     * \`\`\`ts
+     * const result = await client.quote({
+     *   mode: 'cross-chain',
+     *   params: {
+     *     fromTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+     *     toTokenAddress: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
+     *     fromChainId: 1,
+     *     toChainId: 42161,
+     *     amount: '1000000',
+     *     slippage: '0.5',
+     *   },
+     * });
+     * \`\`\`
+     *
+     * @see docs/methods/quote.md
+     */"
+`;
+
+exports[`dist/index.d.ts JSDoc snapshots (Tier-1 keys) > swap JSDoc matches snapshot 1`] = `
+"/**
+     * Builds swap calldata from a prior quote's \`aggregatorId\`.
+     *
+     * @remarks Forwards params unchanged to the backend. Does not compute swap data locally.
+     * @param input - Discriminated by {@link SwapRequest.mode | mode}.
+     * @returns {@link SwapResult} with executable calldata for the selected mode.
+     * @throws {OlympexConfigError} Local validation failure (e.g. invalid {@link FeeOptions.feeBps}).
+     * @throws {OlympexDomainError} Backend \`success: false\` domain response.
+     * @throws {OlympexGraphQLError} GraphQL errors in an otherwise successful HTTP response.
+     * @throws {OlympexNetworkError} Network, timeout, or non-2xx HTTP failure.
+     *
+     * @example Single-chain swap
+     * \`\`\`ts
+     * const { swap } = await client.swap({
+     *   mode: 'single-chain',
+     *   params: {
+     *     chainId: 1,
+     *     inTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+     *     outTokenAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+     *     amount: '1000000',
+     *     slippage: '0.5',
+     *     gasPrice: '20000000000',
+     *     account: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
+     *     aggregatorId: quote.quote.aggregatorId,
+     *   },
+     * });
+     * \`\`\`
+     *
+     * @example Cross-chain swap
+     * \`\`\`ts
+     * const { swap } = await client.swap({
+     *   mode: 'cross-chain',
+     *   params: {
+     *     account: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
+     *     fromChainId: 1,
+     *     toChainId: 42161,
+     *     inTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+     *     outTokenAddress: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
+     *     amount: '1000000',
+     *     slippage: '0.5',
+     *     aggregatorId: quote.quote.aggregatorId,
+     *   },
+     * });
+     * \`\`\`
+     *
+     * @see docs/methods/swap.md
+     */"
+`;

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "removeComments": false,
+    "allowImportingTsExtensions": true,
+    "types": ["vitest", "node"]
+  },
+  "include": ["src", "tests", "scripts", "*.config.ts", "eslint.config.mjs"],
+  "exclude": ["dist", "coverage", "node_modules"]
+}

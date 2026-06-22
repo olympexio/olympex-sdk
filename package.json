@@ -1,0 +1,82 @@
+{
+  "name": "@Olympex-io/olympex-sdk",
+  "version": "0.0.0",
+  "description": "Official TypeScript SDK for Olympex partner integrations.",
+  "license": "Apache-2.0",
+  "packageManager": "yarn@4.15.0",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "node": {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.js"
+      },
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint:jsdoc": "node --experimental-strip-types scripts/validate-export-jsdoc.ts",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "prepack": "yarn build",
+    "debugging": "tsx ./scripts/sdk-instance.ts",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "olympex",
+    "sdk",
+    "graphql",
+    "web3",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@changesets/cli": "2.31.0",
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.7.5",
+    "@vitest/coverage-v8": "4.1.9",
+    "dotenv": "17.4.2",
+    "eslint": "10.4.1",
+    "eslint-plugin-jsdoc": "63.0.4",
+    "husky": "9.1.7",
+    "lint-staged": "17.0.7",
+    "prettier": "3.8.3",
+    "tsup": "8.5.1",
+    "tsx": "4.22.4",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.60.0",
+    "vitest": "4.1.9"
+  },
+  "dependencies": {
+    "ethers": "6.16.0"
+  }
+}

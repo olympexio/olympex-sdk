@@ -1,0 +1,16 @@
+.atl/
+node_modules/
+dist/
+coverage/
+.turbo/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.vscode/
