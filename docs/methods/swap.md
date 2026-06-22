@@ -12,10 +12,10 @@ Available on the object returned by `initialize`.
 
 ## Modes
 
-| Mode | GraphQL operation | Key params |
-| ---- | ----------------- | ---------- |
-| `single-chain` | `getQuoteSwap` | `chainId`, tokens, `amount`, `slippage`, `gasPrice`, `account`, `aggregatorId` |
-| `cross-chain` | `getCrossChainSwap` | `fromChainId`, `toChainId`, tokens, `amount`, `slippage`, `account`, bridge fields |
+| Mode           | GraphQL operation   | Key params                                                                         |
+| -------------- | ------------------- | ---------------------------------------------------------------------------------- |
+| `single-chain` | `getQuoteSwap`      | `chainId`, tokens, `amount`, `slippage`, `gasPrice`, `account`, `aggregatorId`     |
+| `cross-chain`  | `getCrossChainSwap` | `fromChainId`, `toChainId`, tokens, `amount`, `slippage`, `account`, bridge fields |
 
 ## Optional fees
 
@@ -54,12 +54,12 @@ console.log(result.mode, result.swap);
 
 ## Errors
 
-| Failure | Error class |
-| ------- | ----------- |
-| Invalid fees, addresses, or mode | `OlympexConfigError` |
-| Backend `success: false` | `OlympexDomainError` |
-| GraphQL errors | `OlympexGraphQLError` |
-| Network / auth failures | `OlympexNetworkError` |
+| Failure                          | Error class           |
+| -------------------------------- | --------------------- |
+| Invalid fees, addresses, or mode | `OlympexConfigError`  |
+| Backend `success: false`         | `OlympexDomainError`  |
+| GraphQL errors                   | `OlympexGraphQLError` |
+| Network / auth failures          | `OlympexNetworkError` |
 
 See [`errors.md`](../errors.md).
 

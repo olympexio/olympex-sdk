@@ -100,12 +100,12 @@ Method contracts: [`docs/methods/`](./docs/methods/README.md).
 
 Typed errors extend `OlympexSdkError`:
 
-| Class | When |
-| ----- | ---- |
-| `OlympexConfigError` | Invalid local input before any network call |
-| `OlympexDomainError` | Backend `success: false` |
-| `OlympexGraphQLError` | GraphQL `errors[]` on HTTP 200 |
-| `OlympexNetworkError` | Timeouts, HTTP failures, auth 401/403 |
+| Class                 | When                                        |
+| --------------------- | ------------------------------------------- |
+| `OlympexConfigError`  | Invalid local input before any network call |
+| `OlympexDomainError`  | Backend `success: false`                    |
+| `OlympexGraphQLError` | GraphQL `errors[]` on HTTP 200              |
+| `OlympexNetworkError` | Timeouts, HTTP failures, auth 401/403       |
 
 Full matrix: [`docs/errors.md`](./docs/errors.md).
 
@@ -117,14 +117,14 @@ Full matrix: [`docs/errors.md`](./docs/errors.md).
 
 ## Documentation
 
-| Topic | Doc |
-| ----- | --- |
+| Topic           | Doc                                                    |
+| --------------- | ------------------------------------------------------ |
 | Getting started | [`docs/getting-started.md`](./docs/getting-started.md) |
-| Authentication | [`docs/authentication.md`](./docs/authentication.md) |
-| Fees | [`docs/fees.md`](./docs/fees.md) |
-| Errors | [`docs/errors.md`](./docs/errors.md) |
-| Methods | [`docs/methods/`](./docs/methods/README.md) |
-| Logging | [`docs/logging.md`](./docs/logging.md) |
+| Authentication  | [`docs/authentication.md`](./docs/authentication.md)   |
+| Fees            | [`docs/fees.md`](./docs/fees.md)                       |
+| Errors          | [`docs/errors.md`](./docs/errors.md)                   |
+| Methods         | [`docs/methods/`](./docs/methods/README.md)            |
+| Logging         | [`docs/logging.md`](./docs/logging.md)                 |
 
 ## Development scripts
 

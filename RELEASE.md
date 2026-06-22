@@ -6,11 +6,11 @@ How maintainers version, validate, and publish `@olympex-io/olympex-sdk` to the 
 
 The SDK uses [Changesets](https://github.com/changesets/changesets) for SemVer, changelog generation, and release pull requests.
 
-| Bump | When |
-| ---- | ---- |
+| Bump      | When                                                                       |
+| --------- | -------------------------------------------------------------------------- |
 | **patch** | Bug fixes, docs-only corrections, internal fixes with no public API change |
-| **minor** | Backward-compatible features or additive API surface |
-| **major** | Breaking changes to the public TypeScript contract |
+| **minor** | Backward-compatible features or additive API surface                       |
+| **major** | Breaking changes to the public TypeScript contract                         |
 
 Add a changeset when a merged change should ship in the **next** npm release:
 

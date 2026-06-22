@@ -2,15 +2,15 @@
 
 Method-level contracts for the partner SDK. Each page describes inputs, outputs, and error boundaries. The SDK is a thin GraphQL/REST client — it does not compute routes, fees, or calldata locally.
 
-| Method | Doc | Requires `initialize` |
-| ------ | --- | --------------------- |
-| `initialize` | [`getting-started.md`](../getting-started.md) | — |
-| `createAccount` | [`create-account.md`](./create-account.md) | No |
-| `quote` | [`quote.md`](./quote.md) | Yes |
-| `swap` | [`swap.md`](./swap.md) | Yes |
-| `supportChain` | [`getting-started.md`](../getting-started.md) | Yes |
-| `txStatus` | SDK JSDoc / backend schema | Yes |
-| `getVersion` | README | No |
+| Method          | Doc                                           | Requires `initialize` |
+| --------------- | --------------------------------------------- | --------------------- |
+| `initialize`    | [`getting-started.md`](../getting-started.md) | —                     |
+| `createAccount` | [`create-account.md`](./create-account.md)    | No                    |
+| `quote`         | [`quote.md`](./quote.md)                      | Yes                   |
+| `swap`          | [`swap.md`](./swap.md)                        | Yes                   |
+| `supportChain`  | [`getting-started.md`](../getting-started.md) | Yes                   |
+| `txStatus`      | SDK JSDoc / backend schema                    | Yes                   |
+| `getVersion`    | README                                        | No                    |
 
 ## GitBook export note
 

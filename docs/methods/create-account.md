@@ -21,10 +21,10 @@ The SDK resolves `{origin}` from `OLYMPEX_BACKEND_URL` (see [`getting-started.md
 
 ## Response
 
-| Field | Maps to |
-| ----- | ------- |
-| `apiKey` | `initialize({ apiKey })` / `OLYMPEX_API_KEY` |
-| `secretKey` | `initialize({ apiSecret })` / `OLYMPEX_API_SECRET` |
+| Field              | Maps to                                             |
+| ------------------ | --------------------------------------------------- |
+| `apiKey`           | `initialize({ apiKey })` / `OLYMPEX_API_KEY`        |
+| `secretKey`        | `initialize({ apiSecret })` / `OLYMPEX_API_SECRET`  |
 | `password` (input) | `initialize({ passphrase })` / `OLYMPEX_PASSPHRASE` |
 
 `secretKey` is returned **once** at creation. Store it immediately in a secret manager.
@@ -50,11 +50,11 @@ Run bootstrap only from trusted server automation — never from browser code. S
 
 ## Errors
 
-| Failure | Error class |
-| ------- | ----------- |
-| Invalid input (empty name/password) | `OlympexConfigError` |
-| HTTP/network failure | `OlympexNetworkError` |
-| Unexpected response shape | `OlympexNetworkError` |
+| Failure                             | Error class           |
+| ----------------------------------- | --------------------- |
+| Invalid input (empty name/password) | `OlympexConfigError`  |
+| HTTP/network failure                | `OlympexNetworkError` |
+| Unexpected response shape           | `OlympexNetworkError` |
 
 ## Non-goals
 

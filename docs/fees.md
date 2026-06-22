@@ -4,11 +4,11 @@ Optional fee fields on `quote` and `swap` declare **integrator margin** — wher
 
 ## Responsibility model
 
-| Layer | Owns |
-| ----- | ---- |
-| **Integrator (you)** | Supplying `feeBps` (0–100) and `feeRecipient` when you want margin on a quote/swap |
-| **SDK** | Local validation (range, address format) and GraphQL serialization only |
-| **Backend** | Resolving integrator channel from signed auth (`x-api-key-id`, signature headers) |
+| Layer                   | Owns                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------ |
+| **Integrator (you)**    | Supplying `feeBps` (0–100) and `feeRecipient` when you want margin on a quote/swap               |
+| **SDK**                 | Local validation (range, address format) and GraphQL serialization only                          |
+| **Backend**             | Resolving integrator channel from signed auth (`x-api-key-id`, signature headers)                |
 | **Backend + contracts** | Applying `platformFeeIntegrator` (integrator-channel protocol fee) and partner commercial policy |
 
 The SDK does **not** identify whether the caller is an external integrator or Olympex's own frontend. Channel classification and protocol fees are backend/contracts-owned from the signed partner auth context.

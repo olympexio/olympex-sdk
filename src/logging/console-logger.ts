@@ -34,9 +34,7 @@ export interface CreateConsoleLoggerOptions {
  *
  * @see docs/logging.md
  */
-export function createConsoleLogger(
-  options: CreateConsoleLoggerOptions = {},
-): OlympexLogger {
+export function createConsoleLogger(options: CreateConsoleLoggerOptions = {}): OlympexLogger {
   const minRank = LEVEL_RANK[options.minLevel ?? 'info'];
 
   const target = (level: LogLevel): ((...args: unknown[]) => void) => {

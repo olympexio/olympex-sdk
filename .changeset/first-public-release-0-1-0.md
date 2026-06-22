@@ -1,5 +1,5 @@
 ---
-"@olympex-io/olympex-sdk": minor
+'@olympex-io/olympex-sdk': minor
 ---
 
 First public release (`0.1.0`) of the Olympex partner SDK.

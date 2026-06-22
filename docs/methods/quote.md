@@ -12,10 +12,10 @@ Available on the object returned by `initialize`.
 
 ## Modes
 
-| Mode | GraphQL operation | Key params |
-| ---- | ----------------- | ---------- |
-| `single-chain` | `getQuote` | `chainId`, token addresses, `amount`, `slippage`, `gasPrice` |
-| `cross-chain` | `getCrossChainQuote` | `fromChainId`, `toChainId`, token addresses, `amount`, `slippage` |
+| Mode           | GraphQL operation    | Key params                                                        |
+| -------------- | -------------------- | ----------------------------------------------------------------- |
+| `single-chain` | `getQuote`           | `chainId`, token addresses, `amount`, `slippage`, `gasPrice`      |
+| `cross-chain`  | `getCrossChainQuote` | `fromChainId`, `toChainId`, token addresses, `amount`, `slippage` |
 
 ## Optional fees
 
@@ -69,12 +69,12 @@ const result = await client.quote({
 
 ## Errors
 
-| Failure | Error class |
-| ------- | ----------- |
+| Failure                            | Error class                            |
+| ---------------------------------- | -------------------------------------- |
 | Invalid `feeBps`, address, or mode | `OlympexConfigError` (no network call) |
-| Backend `success: false` | `OlympexDomainError` |
-| GraphQL execution errors | `OlympexGraphQLError` |
-| Network, timeout, 401/403 | `OlympexNetworkError` |
+| Backend `success: false`           | `OlympexDomainError`                   |
+| GraphQL execution errors           | `OlympexGraphQLError`                  |
+| Network, timeout, 401/403          | `OlympexNetworkError`                  |
 
 See [`errors.md`](../errors.md).
 
