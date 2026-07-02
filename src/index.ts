@@ -22,6 +22,7 @@ export type {
   FeeOptions,
   GasMultiplier,
   InitializeOptions,
+  IntegratorFeeBreakdown,
   LogLevel,
   OlympexClient,
   OlympexLogger,

@@ -21,6 +21,24 @@ Available on the object returned by `initialize`.
 
 Pass `fees: { feeBps?, feeRecipient? }` to declare integrator margin for this call. Per-call `fees` override `initialize({ defaultFees })`. See [`fees.md`](../fees.md).
 
+## Integrator fee breakdown (single-chain only)
+
+Integrator accounts receive `integratorFeeBreakdown` on successful single-chain quotes (`result.quote.integratorFeeBreakdown`). Cross-chain quotes do not expose this field. Field semantics, amount units, and channel rules are defined in [`fees.md`](../fees.md).
+
+```ts
+const result = await client.quote({
+  mode: 'single-chain',
+  params: {
+    /* ... */
+  },
+});
+
+if (result.mode === 'single-chain') {
+  const breakdown = result.quote.integratorFeeBreakdown;
+  // breakdown.protocolFeeAmount + breakdown.integratorMarginAmount — see fees.md
+}
+```
+
 ## Example — single-chain
 
 ```ts

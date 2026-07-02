@@ -14,6 +14,13 @@ const BASE_AUTH_OPTIONS = {
   passphrase: 'partner-passphrase',
 } as const;
 
+const PINNED_BREAKDOWN = {
+  protocolFeeBps: 30,
+  integratorMarginBps: 37,
+  protocolFeeAmount: '300000',
+  integratorMarginAmount: '37000000',
+} as const;
+
 afterEach(() => {
   vi.restoreAllMocks();
 });
@@ -23,6 +30,124 @@ function mockGraphQLResponse(data: Record<string, unknown>) {
 }
 
 describe('Web3 methods', () => {
+  it('passes integrator fee breakdown through on single-chain quotes', async () => {
+    const fetchMock = mockGraphQLResponse({
+      getQuote: {
+        aggregatorId: 'olympex',
+        integratorFeeBreakdown: PINNED_BREAKDOWN,
+        outAmount: '100',
+        routes: [],
+      },
+    });
+    const client = initialize(BASE_AUTH_OPTIONS);
+
+    const result = await client.quote({
+      mode: 'single-chain',
+      params: {
+        amount: '1',
+        chainId: 1,
+        gasPrice: '30',
+        inTokenAddress: '0xIn',
+        outTokenAddress: '0xOut',
+        slippage: '1',
+      },
+    });
+
+    expect(result).toEqual({
+      mode: 'single-chain',
+      quote: {
+        aggregatorId: 'olympex',
+        integratorFeeBreakdown: PINNED_BREAKDOWN,
+        outAmount: '100',
+        routes: [],
+      },
+    });
+
+    const request = JSON.stringify(requestBody(fetchMock));
+    expect(request).toContain('integratorFeeBreakdown');
+    expect(request).toContain('protocolFeeBps');
+    expect(request).toContain('integratorMarginBps');
+    expect(request).toContain('protocolFeeAmount');
+    expect(request).toContain('integratorMarginAmount');
+    expect(request).toContain('GetQuote');
+  });
+
+  it('returns app-channel quotes without integrator fee breakdown', async () => {
+    mockGraphQLResponse({
+      getQuote: {
+        aggregatorId: 'olympex',
+        outAmount: '100',
+        routes: [],
+      },
+    });
+    const client = initialize(BASE_AUTH_OPTIONS);
+
+    const result = await client.quote({
+      mode: 'single-chain',
+      params: {
+        amount: '1',
+        chainId: 1,
+        gasPrice: '30',
+        inTokenAddress: '0xIn',
+        outTokenAddress: '0xOut',
+        slippage: '1',
+      },
+    });
+
+    expect(result).toEqual({
+      mode: 'single-chain',
+      quote: {
+        aggregatorId: 'olympex',
+        outAmount: '100',
+        routes: [],
+      },
+    });
+    if (result.mode === 'single-chain') {
+      expect(result.quote.integratorFeeBreakdown).toBeUndefined();
+    }
+  });
+
+  it('passes zero-margin integrator breakdown through verbatim', async () => {
+    const zeroMarginBreakdown = {
+      protocolFeeBps: 30,
+      integratorMarginBps: 0,
+      protocolFeeAmount: '300000',
+      integratorMarginAmount: '0',
+    } as const;
+
+    mockGraphQLResponse({
+      getQuote: {
+        aggregatorId: 'olympex',
+        integratorFeeBreakdown: zeroMarginBreakdown,
+        outAmount: '100',
+        routes: [],
+      },
+    });
+    const client = initialize(BASE_AUTH_OPTIONS);
+
+    const result = await client.quote({
+      mode: 'single-chain',
+      params: {
+        amount: '1',
+        chainId: 1,
+        gasPrice: '30',
+        inTokenAddress: '0xIn',
+        outTokenAddress: '0xOut',
+        slippage: '1',
+      },
+    });
+
+    expect(result).toEqual({
+      mode: 'single-chain',
+      quote: {
+        aggregatorId: 'olympex',
+        integratorFeeBreakdown: zeroMarginBreakdown,
+        outAmount: '100',
+        routes: [],
+      },
+    });
+  });
+
   it('requests single-chain quotes without local quote calculation', async () => {
     const fetchMock = mockGraphQLResponse({
       getQuote: {
