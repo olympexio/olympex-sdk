@@ -30,6 +30,7 @@
       "QuoteResult",
       "SwapResult",
       "SingleChainQuote",
+      "IntegratorFeeBreakdown",
       "CrossChainQuote",
       "SingleChainSwap",
       "CrossChainSwap",

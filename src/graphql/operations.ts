@@ -39,6 +39,12 @@ export const GET_QUOTE = /* GraphQL */ `
         valueToApprove
       }
       gasMultiplier
+      integratorFeeBreakdown {
+        protocolFeeBps
+        integratorMarginBps
+        protocolFeeAmount
+        integratorMarginAmount
+      }
     }
   }
 `;
