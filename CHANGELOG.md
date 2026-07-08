@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+- 734f702: Single-chain `quote` responses now include `integratorFeeBreakdown` for integrator accounts — Olympex protocol fee and integrator margin lines (amounts in payment-token smallest units). The SDK requests and returns backend values verbatim; no local fee calculation. Cross-chain quotes are unchanged.
+
 ## 0.1.0
 
 ### Minor Changes

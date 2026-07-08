@@ -55,6 +55,9 @@ jobs:
       - name: Pack smoke test
         run: npm pack --dry-run
 
+      - name: Upgrade npm for Trusted Publishing
+        run: npm install -g npm@11.5.1
+
       - name: Create release PR or publish
         uses: changesets/action@v1
         with:
