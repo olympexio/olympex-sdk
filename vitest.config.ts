@@ -1,6 +1,13 @@
 import { defineConfig } from 'vitest/config';
 
+import { readPackageVersion } from './scripts/lib/package-version';
+
+const sdkVersion = readPackageVersion();
+
 export default defineConfig({
+  define: {
+    __SDK_VERSION__: JSON.stringify(sdkVersion),
+  },
   test: {
     environment: 'node',
     globals: false,

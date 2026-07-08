@@ -1,4 +1,11 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
+
+const packageJson = JSON.parse(
+  readFileSync(join(import.meta.dirname, '../../package.json'), 'utf8'),
+) as { version: string };
 
 import {
   createAccount,
@@ -31,6 +38,6 @@ describe('ESM packaging smoke', () => {
     expect(typeof client.swap).toBe('function');
     expect(typeof client.supportChain).toBe('function');
     expect(typeof client.txStatus).toBe('function');
-    expect(getVersion()).toMatch(/\d+\.\d+\.\d+/);
+    expect(getVersion()).toBe(packageJson.version);
   });
 });
