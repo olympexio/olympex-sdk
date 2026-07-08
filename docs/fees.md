@@ -4,12 +4,12 @@ Optional fee fields on `quote` and `swap` declare **integrator margin** — wher
 
 ## Responsibility model
 
-| Layer                   | Owns                                                                                             |
-| ----------------------- | ------------------------------------------------------------------------------------------------ |
-| **Integrator (you)**    | Supplying `feeBps` (0–100) and `feeRecipient` when you want margin on a quote/swap               |
-| **SDK**                 | Local validation (range, address format) and GraphQL serialization only                          |
-| **Backend**             | Resolving integrator channel from signed auth (`x-api-key-id`, signature headers)                |
-| **Backend + contracts** | Applying `platformFeeIntegrator` (integrator-channel protocol fee) and partner commercial policy |
+| Layer                   | Owns                                                                                                                                         |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Integrator (you)**    | Supplying `feeBps` (0–100) and `feeRecipient` when you want margin on a quote/swap                                                           |
+| **SDK**                 | Local validation (range, address format), GraphQL serialization, and verbatim passthrough of `integratorFeeBreakdown` on single-chain quotes |
+| **Backend**             | Resolving integrator channel from signed auth; computing and returning `integratorFeeBreakdown` on integrator single-chain quotes            |
+| **Backend + contracts** | Applying `platformFeeIntegrator` (integrator-channel protocol fee) and partner commercial policy                                             |
 
 The SDK does **not** identify whether the caller is an external integrator or Olympex's own frontend. Channel classification and protocol fees are backend/contracts-owned from the signed partner auth context.
 
@@ -61,4 +61,29 @@ await client.quote({
 
 Protocol fees configured by Olympex for your integrator channel are applied by the backend from your authenticated account — SDK consumers do not set them.
 
-See also [`authentication.md`](./authentication.md) for how channel context is derived from signed requests.
+## Quote breakdown (`integratorFeeBreakdown`)
+
+On successful **single-chain** `quote` responses, integrator accounts receive `integratorFeeBreakdown` on `SingleChainQuote`. The SDK requests and returns this object verbatim — it does not compute, derive, or reformat any breakdown values.
+
+| Field                    | Type     | Meaning                                                              |
+| ------------------------ | -------- | -------------------------------------------------------------------- |
+| `protocolFeeBps`         | `number` | Olympex protocol fee in basis points                                 |
+| `integratorMarginBps`    | `number` | Integrator margin in basis points (`0` when you set `feeBps` to `0`) |
+| `protocolFeeAmount`      | `string` | Protocol fee in smallest units of the quote payment/input token      |
+| `integratorMarginAmount` | `string` | Integrator margin in smallest units of the quote payment/input token |
+
+`protocolFeeAmount` plus `integratorMarginAmount` are the **complete Olympex fee picture** for integrator UI.
+
+Amount fields are string integers in the **smallest units of the quote payment token** — format with token decimals in your UI.
+
+**Presence by account channel** (resolved by the backend from signed auth — see [`authentication.md`](./authentication.md)):
+
+| Account channel           | `integratorFeeBreakdown` on single-chain quote                                    |
+| ------------------------- | --------------------------------------------------------------------------------- |
+| Integrator                | Included on successful quotes; margin fields are `0` when you set `feeBps` to `0` |
+| App / non-integrator      | Not returned                                                                      |
+| Cross-chain (any account) | Not returned                                                                      |
+
+The SDK does not warn or throw when breakdown is absent. If your integrator account receives a successful single-chain quote without breakdown, treat it as a backend configuration issue — not an SDK validation error.
+
+See [`methods/quote.md`](./methods/quote.md) for response access patterns.

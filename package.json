@@ -56,7 +56,8 @@
     "version-packages": "changeset version",
     "prepack": "yarn build",
     "debugging": "tsx ./scripts/sdk-instance.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "ci:validate": "yarn build && yarn typecheck && yarn lint && yarn lint:jsdoc && yarn test:coverage"
   },
   "keywords": [
     "olympex",

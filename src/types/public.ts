@@ -486,6 +486,26 @@ export type SwapResult =
   | { readonly mode: 'cross-chain'; readonly swap: CrossChainSwap };
 
 /**
+ * Olympex protocol + integrator margin lines from the backend (single-chain quote only).
+ *
+ * @remarks Nested under {@link SingleChainQuote} when the backend includes integrator-channel fee lines.
+ * Amount fields are string integers in the smallest units of the quote payment token.
+ * The SDK surfaces backend values verbatim; it does not compute or normalize breakdown amounts.
+ *
+ * @see docs/fees.md
+ */
+export interface IntegratorFeeBreakdown {
+  readonly protocolFeeBps: number;
+  readonly integratorMarginBps: number;
+  /**
+   * Smallest units of the payment/input token — do not format as human decimals
+   * without token decimals.
+   */
+  readonly protocolFeeAmount: string;
+  readonly integratorMarginAmount: string;
+}
+
+/**
  * Single-chain quote payload from the backend aggregator.
  *
  * @remarks Nested under {@link QuoteResult} when `mode` is `'single-chain'`.
@@ -493,6 +513,7 @@ export type SwapResult =
  * @property outAmount - Estimated output token amount.
  * @property aggregatorId - Backend route identifier; required for {@link OlympexClient.swap}.
  * @property routes - Route splits returned by the aggregator.
+ * @property integratorFeeBreakdown - Optional Olympex fee lines for integrator channel quotes.
  *
  * @see docs/methods/quote.md
  */
@@ -505,6 +526,12 @@ export interface SingleChainQuote {
   readonly routes: readonly QuoteRoute[];
   readonly dataFeeTransaction?: DataFeeTransaction | null;
   readonly gasMultiplier?: string | null;
+  /**
+   * Olympex protocol + integrator margin breakdown when the backend includes it (integrator channel).
+   *
+   * @see docs/fees.md
+   */
+  readonly integratorFeeBreakdown?: IntegratorFeeBreakdown;
 }
 
 // TODO: esto no estoy seguro si deberiamos mostrarlo, yo pienso que no pero lo dejo para luego discutirlo con Pablo
