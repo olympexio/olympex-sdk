@@ -81,7 +81,7 @@ export interface OlympexClient {
    * Returns the SDK package version string.
    *
    * @remarks Delegates to the standalone {@link getVersion} export.
-   * @returns Semantic version of the installed SDK (e.g. `'0.0.0'`).
+   * @returns Semantic version of the installed SDK package.
    *
    * @see docs/getting-started.md
    */

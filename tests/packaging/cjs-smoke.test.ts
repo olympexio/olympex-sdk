@@ -1,6 +1,12 @@
 import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
+
+const packageJson = JSON.parse(
+  readFileSync(join(import.meta.dirname, '../../package.json'), 'utf8'),
+) as { version: string };
 
 const requireCjs = createRequire(import.meta.url);
 const pkg = requireCjs('../../dist/index.js');
@@ -24,6 +30,6 @@ describe('CJS packaging smoke', () => {
 
     expect(typeof client.quote).toBe('function');
     expect(typeof client.swap).toBe('function');
-    expect(pkg.getVersion()).toMatch(/\d+\.\d+\.\d+/);
+    expect(pkg.getVersion()).toBe(packageJson.version);
   });
 });

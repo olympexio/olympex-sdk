@@ -1,6 +1,13 @@
 import { defineConfig } from 'tsup';
 
+import { readPackageVersion } from './scripts/lib/package-version';
+
+const sdkVersion = readPackageVersion();
+
 export default defineConfig({
+  define: {
+    __SDK_VERSION__: JSON.stringify(sdkVersion),
+  },
   tsconfig: 'tsconfig.build.json',
   entry: ['src/index.ts'],
   outDir: 'dist',
