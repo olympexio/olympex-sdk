@@ -1,3 +1,4 @@
+import { ZeroAddress } from 'ethers';
 import { describe, expect, it } from 'vitest';
 
 import { mergeParamsWithFees, serializeFeeOptions } from '../../src/fees/serialize.js';
@@ -6,6 +7,13 @@ import { validateFeeOptions } from '../../src/fees/validation.js';
 import { OlympexConfigError } from '../../src/index.js';
 
 const VALID_RECIPIENT = '0x0000000000000000000000000000000000000001';
+
+function validateMergedFees(
+  callFees: Parameters<typeof resolveFeeOptions>[0],
+  clientDefaultFees: Parameters<typeof resolveFeeOptions>[1],
+): void {
+  validateFeeOptions(resolveFeeOptions(callFees, clientDefaultFees));
+}
 
 describe('fee options validation', () => {
   it('accepts undefined or empty fee options', () => {
@@ -24,7 +32,13 @@ describe('fee options validation', () => {
 
   it('accepts feeBps within 0-100', () => {
     expect(() => validateFeeOptions({ feeBps: 0 })).not.toThrow();
-    expect(() => validateFeeOptions({ feeBps: 100 })).not.toThrow();
+    expect(() => validateFeeOptions({ feeBps: 100, feeRecipient: VALID_RECIPIENT })).not.toThrow();
+  });
+
+  it('rejects positive feeBps without feeRecipient', () => {
+    expect(() => validateFeeOptions({ feeBps: 100 })).toThrow(OlympexConfigError);
+    expect(() => validateFeeOptions({ feeBps: 100 })).toThrow(/feeRecipient/);
+    expect(() => validateFeeOptions({ feeBps: 100 })).toThrow(/feeBps/);
   });
 
   it('rejects invalid feeRecipient format', () => {
@@ -35,6 +49,29 @@ describe('fee options validation', () => {
 
   it('accepts valid feeRecipient', () => {
     expect(() => validateFeeOptions({ feeRecipient: VALID_RECIPIENT })).not.toThrow();
+  });
+
+  it('rejects merged positive feeBps without feeRecipient', () => {
+    expect(() => validateMergedFees({ feeBps: 25 }, undefined)).toThrow(OlympexConfigError);
+    expect(() => validateMergedFees({ feeBps: 25 }, undefined)).toThrow(/feeRecipient/);
+    expect(() => validateMergedFees({ feeBps: 25 }, undefined)).toThrow(/feeBps/);
+  });
+
+  it('allows merged zero feeBps without feeRecipient', () => {
+    expect(() => validateMergedFees({ feeBps: 0 }, undefined)).not.toThrow();
+  });
+
+  it('rejects non-integer feeBps', () => {
+    expect(() => validateFeeOptions({ feeBps: 25.5 })).toThrow(OlympexConfigError);
+    expect(() => validateFeeOptions({ feeBps: 25.5 })).toThrow(/integer/);
+  });
+
+  it('rejects NaN feeBps', () => {
+    expect(() => validateFeeOptions({ feeBps: Number.NaN })).toThrow(OlympexConfigError);
+  });
+
+  it('rejects zero address as feeRecipient', () => {
+    expect(() => validateFeeOptions({ feeRecipient: ZeroAddress })).toThrow(OlympexConfigError);
   });
 });
 
